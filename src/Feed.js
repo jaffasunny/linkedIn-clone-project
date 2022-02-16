@@ -8,6 +8,7 @@ import {
 import React from "react";
 import "./Feed.css";
 import InputOption from "./InputOption";
+import Post from "./Post";
 
 function Feed() {
 	return (
@@ -31,6 +32,12 @@ function Feed() {
 					/>
 				</div>
 			</div>
+
+			<Post
+				name="Jaffer Sunny"
+				description="This is a test"
+				message="WOW this worked"
+			/>
 		</div>
 	);
 }
