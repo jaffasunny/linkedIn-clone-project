@@ -7,11 +7,11 @@
 	cursor: pointer;
 }
 
-.inpurtOption:hover {
+.inputOption:hover {
 	background-color: whitesmoke;
 	border-radius: 10px;
 }
 
-.inpurtOption > h4 {
+.inputOption > h4 {
 	margin-left: 5px;
 }

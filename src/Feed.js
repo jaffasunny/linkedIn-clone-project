@@ -5,20 +5,61 @@ import {
 	Image,
 	Subscriptions,
 } from "@mui/icons-material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Feed.css";
+import { db } from "./firebase";
 import InputOption from "./InputOption";
 import Post from "./Post";
+import firebase from "firebase";
 
 function Feed() {
+	const [input, setInput] = useState("");
+	const [posts, setPosts] = useState([]);
+
+	useEffect(() => {
+		db.collection("posts")
+			.orderBy("timestamp", "desc")
+			.onSnapshot((snapshot) => {
+				setPosts(
+					snapshot.docs.map((doc) => {
+						return {
+							id: doc.id,
+							data: doc.data(),
+						};
+					})
+				);
+			});
+	}, []);
+
+	const sendPost = (e) => {
+		e.preventDefault();
+
+		db.collection("posts").add({
+			name: "Jaffer Sunny",
+			description: "This is a test",
+			message: input,
+			photoUrl: "",
+			timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+		});
+	};
+
 	return (
 		<div className="feed">
 			<div className="feed__inputContainer">
 				<div className="feed__input">
 					<Create />
 					<form>
-						<input type="text" className="form__input" />
-						<button type="submit">Send</button>
+						<input
+							value={input}
+							onChange={(e) => {
+								setInput(e.target.value);
+							}}
+							type="text"
+							className="form__input"
+						/>
+						<button onClick={sendPost} type="submit">
+							Send
+						</button>
 					</form>
 				</div>
 				<div className="feed__inputOptions">
@@ -33,11 +74,17 @@ function Feed() {
 				</div>
 			</div>
 
-			<Post
-				name="Jaffer Sunny"
-				description="This is a test"
-				message="WOW this worked"
-			/>
+			{posts.map(({ id, data: { name, description, message, photoUrl } }) => {
+				return (
+					<Post
+						key={id}
+						name={name}
+						description={description}
+						message={message}
+						photoUrl={photoUrl}
+					/>
+				);
+			})}
 		</div>
 	);
 }
