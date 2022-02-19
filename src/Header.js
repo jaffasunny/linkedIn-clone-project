@@ -15,7 +15,7 @@ import { logout } from "./features/userSlice";
 
 function Header() {
 	const dispatch = useDispatch();
-	
+
 	const logoutOfApp = () => {
 		dispatch(logout());
 		auth.signOut();
@@ -40,11 +40,7 @@ function Header() {
 				<HeaderOptions Icon={BusinessCenter} title="My Network" />
 				<HeaderOptions Icon={Chat} title="My Network" />
 				<HeaderOptions Icon={Notifications} title="My Network" />
-				<HeaderOptions
-					avatar="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-					title="me"
-					onClick={logoutOfApp}
-				/>
+				<HeaderOptions avatar={true} title="me" onClick={logoutOfApp} />
 			</div>
 		</div>
 	);
