@@ -5,7 +5,7 @@ export const userSlice = createSlice({
 	initialState: { user: null },
 	reducers: {
 		login: (state, action) => {
-			state.value = action.payload;
+			state.user = action.payload;
 		},
 
 		logout: (state) => {
@@ -17,6 +17,6 @@ export const userSlice = createSlice({
 export const { login, logout } = userSlice.actions;
 
 // Selectors to pull information from redux data layer
-export const selectUser = (state) => state.user.value;
+export const selectUser = (state) => state.user.user;
 
 export default userSlice.reducer;
